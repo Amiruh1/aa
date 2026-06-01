@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mapa Conceptual - Perfil de Salida Bachillerato Ecuatoriano 2016</title>
-    <!-- html2canvas library for image download -->
+    <title>Mapa Conceptual - Perfil de Salida (2016) | Estilo nodos</title>
+    <!-- html2canvas para descargar como imagen -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         * {
@@ -14,276 +14,249 @@
         }
 
         body {
-            background: #eef2f5;
+            background: #f2f4f7;
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 24px;
+            padding: 40px 20px;
         }
 
-        /* Contenedor del mapa: aspecto sobrio, similar a un gráfico conceptual */
+        /* Contenedor principal del mapa conceptual - estilo similar a imagen de referencia (nodos + conexiones) */
         .mapa-container {
             max-width: 1300px;
             width: 100%;
-            background: #FFFFFF;
-            padding: 24px 28px 32px 28px;
-            border-radius: 16px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+            background: #ffffff;
+            padding: 30px 25px 40px 25px;
+            border-radius: 24px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
             margin-bottom: 35px;
-            transition: all 0.2s;
-            border: 1px solid #dce5ec;
+            border: 1px solid #e2e8f0;
         }
 
-        /* Tipografía limpia, neutra */
-        .mapa {
-            font-size: 12pt;
-            line-height: 1.45;
-            color: #1f2d3d;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-        }
-
-        /* Título principal estilo mapa conceptual */
+        /* Título central estilo mapa */
         .titulo-principal {
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: #1e3a5f;
-            letter-spacing: -0.2px;
-            border-bottom: 2px solid #b0c4de;
+            letter-spacing: -0.3px;
+            color: #1f3a4b;
+            margin-bottom: 6px;
+            border-bottom: 2px solid #cbdde9;
             display: inline-block;
             width: auto;
-            padding-bottom: 8px;
-            padding-left: 16px;
-            padding-right: 16px;
+            padding: 0 20px 10px 20px;
             margin-left: auto;
             margin-right: auto;
         }
         
-        .subtitulo {
+        .subtitulo-central {
             text-align: center;
-            font-size: 11.5px;
-            color: #2c4e6e;
+            font-size: 12px;
+            color: #527a9b;
+            margin-top: 6px;
+            margin-bottom: 30px;
             font-weight: 500;
-            margin-top: 8px;
-            margin-bottom: 28px;
-            letter-spacing: 0.3px;
-            background: #f8fafc;
+            background: #f7fafd;
             display: inline-block;
             width: auto;
-            padding: 4px 18px;
-            border-radius: 40px;
+            padding: 5px 18px;
+            border-radius: 30px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Estructura del mapa: tres columnas conectadas visualmente */
-        .valores-grid {
+        /* --- Estructura de mapa conceptual tipo "nodos y conexiones" --- */
+        .mapa-nodos {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
             justify-content: center;
-            margin-top: 10px;
+            gap: 28px;
+            position: relative;
         }
 
-        /* Cada columna simula un nodo conceptual con bordes discretos */
-        .valor-columna {
+        /* Cada valor es un nodo principal redondeado con sombra suave */
+        .nodo-principal {
             flex: 1;
-            min-width: 280px;
+            min-width: 300px;
             background: #ffffff;
-            border-radius: 20px;
-            padding: 18px 18px 22px 18px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: 0.1s ease;
-            border: 1px solid #d4dfe9;
+            border-radius: 32px;
+            border: 1px solid #dce5ef;
+            padding: 16px 14px 20px 14px;
+            box-shadow: 0 6px 12px -8px rgba(0,0,0,0.1);
+            transition: 0.1s;
+            position: relative;
         }
         
-        /* Bordes laterales sutiles que diferencian sin usar colores estridentes */
-        .columna-justicia {
-            border-top: 4px solid #5d7b9a;
+        /* Líneas de conexión visual entre nodos (efecto conceptual) */
+        .nodo-principal:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 40%;
+            right: -18px;
+            width: 28px;
+            height: 2px;
+            background: #b9cfec;
+            display: none; /* se muestra solo en desktop grande */
         }
         
-        .columna-innovacion {
-            border-top: 4px solid #3f7e6b;
-        }
-        
-        .columna-solidaridad {
-            border-top: 4px solid #9b6b43;
+        @media (min-width: 1024px) {
+            .mapa-nodos {
+                gap: 32px;
+            }
+            .nodo-principal:not(:last-child)::after {
+                display: block;
+            }
         }
 
-        .valor-titulo {
-            font-size: 19px;
-            font-weight: 700;
+        /* Título del nodo con ícono sutil */
+        .nodo-titulo {
+            font-size: 22px;
+            font-weight: 800;
             text-align: center;
-            padding-bottom: 8px;
-            margin-bottom: 18px;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 60px;
+            margin-bottom: 20px;
+            color: #2c5a7a;
             letter-spacing: -0.2px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #1f3b4c;
-        }
-        
-        /* Títulos con símbolos tipográficos, sin exceso de color */
-        .columna-justicia .valor-titulo::before {
-            content: "⚖️ ";
-            font-weight: normal;
-        }
-        .columna-innovacion .valor-titulo::before {
-            content: "💡 ";
-            font-weight: normal;
-        }
-        .columna-solidaridad .valor-titulo::before {
-            content: "🤝 ";
-            font-weight: normal;
+            border: 1px solid #e9eef3;
         }
 
-        /* Cada competencia se presenta como bloque de mapa conceptual */
-        .competencia-item {
-            margin-bottom: 22px;
-            border-left: 3px solid;
-            padding-left: 14px;
+        /* sub-nodos (competencias) se muestran como "ramas" */
+        .ramas-competencias {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .nodo-secundario {
             background: #fefefe;
-            border-radius: 0 12px 12px 0;
+            border-left: 3px solid;
+            padding: 10px 12px;
+            border-radius: 18px;
+            transition: all 0.1s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
         
-        .columna-justicia .competencia-item {
-            border-left-color: #6c8eae;
-        }
-        .columna-innovacion .competencia-item {
-            border-left-color: #569f8a;
-        }
-        .columna-solidaridad .competencia-item {
-            border-left-color: #c28b5c;
-        }
-
-        .competencia-texto {
-            font-weight: 700;
+        .nodo-justicia .nodo-secundario { border-left-color: #6c8eae; }
+        .nodo-innovacion .nodo-secundario { border-left-color: #569f8a; }
+        .nodo-solidaridad .nodo-secundario { border-left-color: #c28b5c; }
+        
+        .competencia-titulo {
+            font-weight: 800;
+            font-size: 12.5pt;
             margin-bottom: 8px;
-            font-size: 12pt;
-            color: #1f3a4b;
-            background: none;
-            padding-right: 4px;
+            color: #1e3a4d;
+            display: inline-block;
+            background: #f5f7fb;
+            padding: 2px 8px;
+            border-radius: 20px;
         }
-
-        /* Criterio e indicador con estilo de tarjeta interna (gráfico conceptual) */
-        .criterio-evaluacion, .indicador {
+        
+        /* Cada criterio e indicador como "hoja" conceptual */
+        .criterio-bloque, .indicador-bloque {
+            font-size: 10.5pt;
             margin-top: 8px;
-            font-size: 10.8pt;
+            padding-left: 6px;
             line-height: 1.4;
         }
-
-        .criterio-evaluacion strong, .indicador strong {
+        
+        .criterio-bloque strong, .indicador-bloque strong {
             font-weight: 700;
-            color: #2c3e4e;
-            text-decoration: none;
+            color: #2c4b6e;
         }
         
-        .criterio-evaluacion {
-            background: #f8f9fc;
-            padding: 6px 10px;
-            border-radius: 12px;
-            margin-top: 6px;
-            border: 1px solid #eef2f8;
-        }
-        
-        .indicador {
-            background: #fefaf5;
-            padding: 6px 10px;
-            border-radius: 12px;
+        .insercion-bloque {
             margin-top: 8px;
-            border: 1px solid #f3ede5;
-        }
-        
-        /* Inserción: parecido a una "conexión" curricular */
-        .inserto {
-            margin-top: 10px;
+            font-size: 9.8pt;
+            background: #f4f9fe;
             padding: 5px 10px;
-            background: #f4f7fb;
-            border-radius: 16px;
-            font-size: 10.2pt;
-            font-style: normal;
-            width: 100%;
-            color: #486077;
-            border-left: 2px solid #b9cfec;
+            border-radius: 18px;
+            color: #4c6f8c;
+            border-left: 2px dotted #8fb0cc;
         }
         
-        .inserto span {
-            font-weight: 600;
-            color: #2b5e7a;
+        .insercion-bloque span {
+            font-weight: 700;
+            color: #2a628f;
         }
 
-        /* Sección de conexiones integradoras estilo resumen del mapa */
-        .competencias-integradoras {
-            margin-top: 32px;
+        /* Sección de conexiones globales estilo "red conceptual" */
+        .conexiones-globales {
+            margin-top: 38px;
             background: #fafcfd;
-            border-radius: 24px;
-            padding: 16px 24px;
-            border: 1px solid #dce5ef;
-            box-shadow: none;
+            border-radius: 28px;
+            padding: 18px 24px;
+            border: 1px solid #e2eaf1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .competencias-integradoras p {
-            margin-bottom: 6px;
-            font-size: 11pt;
-        }
-        
-        .badge-integral {
+        .badge-idea {
             font-weight: 700;
-            background: #e9edf2;
+            background: #edf2f7;
             display: inline-block;
-            padding: 4px 14px;
-            border-radius: 30px;
+            padding: 5px 18px;
+            border-radius: 40px;
             font-size: 10.5px;
-            letter-spacing: 0.3px;
-            color: #2b4f6c;
+            color: #2f5b82;
+        }
+        
+        .texto-integrador {
+            font-size: 10.5pt;
+            max-width: 70%;
         }
         
         .nota-pie {
-            font-size: 9.8pt;
+            font-size: 9.5pt;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 22px;
             background: #f7f9fc;
             padding: 10px 16px;
-            border-radius: 30px;
-            color: #4b6f8c;
-            border: 1px solid #e2eaf1;
+            border-radius: 28px;
+            color: #4a6f8e;
+            border: 1px solid #e3eaf2;
         }
 
-        /* Botón de descarga limpio, estilo profesional */
+        /* Botón estilo neutro */
         .btn-descarga {
-            background: #eef2f7;
-            border: 1px solid #bdc4cc;
+            background: #ffffff;
+            border: 1px solid #b9cadb;
             padding: 10px 28px;
             font-size: 12.5px;
             font-weight: 600;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             cursor: pointer;
             border-radius: 40px;
-            color: #2d4a6e;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            color: #2c5a7a;
             transition: 0.2s;
             margin-bottom: 25px;
-            letter-spacing: 0.4px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         .btn-descarga:hover {
-            background: #e6ecf3;
-            border-color: #9aaebf;
-            transform: scale(1.01);
+            background: #f0f4f9;
+            border-color: #8fa6bf;
         }
-
-        /* Responsivo */
+        
         @media (max-width: 860px) {
-            .valores-grid {
-                gap: 20px;
-            }
             .mapa-container {
                 padding: 18px;
+            }
+            .conexiones-globales {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            .texto-integrador {
+                max-width: 100%;
             }
         }
         @media print {
@@ -294,141 +267,130 @@
             .btn-descarga {
                 display: none;
             }
-            .mapa-container {
-                box-shadow: none;
-                border-radius: 0;
-                padding: 12px;
-            }
         }
     </style>
 </head>
 <body>
-    <button class="btn-descarga" id="descargarImagenBtn">📄 Descargar mapa conceptual (PNG)</button>
+    <button class="btn-descarga" id="descargarImagenBtn">⬇️ Descargar mapa conceptual (PNG)</button>
     
     <div class="mapa-container" id="mapaCaptura">
-        <div class="mapa">
-            <div class="titulo-principal">
-                Perfil de salida del Bachillerato ecuatoriano (2016)
-            </div>
-            <div class="subtitulo">
-                Valores fundamentales: justicia, innovación y solidaridad
-            </div>
-            
-            <div class="valores-grid">
-                <!-- COLUMNA JUSTICIA -->
-                <div class="valor-columna columna-justicia">
-                    <div class="valor-titulo">Justicia</div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">J.1 – Comprensión del país y construcción democrática</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Evalúa la capacidad del estudiante para identificar necesidades y potencialidades del Ecuador, involucrándose activamente en iniciativas que promuevan equidad e inclusión en diversos contextos sociales.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Propone acciones concretas de participación ciudadana democrática, reconociendo problemas comunitarios y planteando alternativas justas y equitativas.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Estudios sociales, proyectos de servicio comunitario, educación para la ciudadanía.</div>
+        <div style="text-align: center;">
+            <div class="titulo-principal">Mapa conceptual · Perfil de salida 2016</div>
+            <div class="subtitulo-central">Valores fundamentales: justicia · innovación · solidaridad</div>
+        </div>
+        
+        <!-- Estructura de nodos y conexiones (estilo imagen de referencia: nodos + ramas) -->
+        <div class="mapa-nodos">
+            <!-- NODO JUSTICIA -->
+            <div class="nodo-principal nodo-justicia">
+                <div class="nodo-titulo">⚖️ Justicia</div>
+                <div class="ramas-competencias">
+                    <!-- Competencia J.1 -->
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">J.1 · Comprensión del país y democracia</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Identifica necesidades y potencialidades del Ecuador, participa en iniciativas equitativas e inclusivas.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Propone acciones concretas de ciudadanía democrática y alternativas justas.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Estudios sociales, proyectos comunitarios, educación ciudadana.</div>
                     </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">J.2 – Actuación ética, generosidad y honestidad</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Mide la coherencia entre principios éticos y acciones personales, así como la integridad en contextos académicos, familiares y sociales.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Demuestra honestidad y coherencia en su discurso y práctica, resolviendo dilemas morales elementales con base en valores universales.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Formación ética, tutorías, reflexión en lenguaje y filosofía.</div>
+                    <!-- Competencia J.2 -->
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">J.2 · Actuación ética y honestidad</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Mide coherencia entre principios éticos y acciones en contextos académicos y sociales.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Demuestra honestidad, resuelve dilemas morales con valores universales.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Formación ética, tutorías, filosofía.</div>
                     </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">J.3 – Respeto con personas, naturaleza e ideas</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Analiza el cumplimiento de obligaciones y el ejercicio de derechos, así como el respeto hacia la diversidad de pensamiento y el entorno natural.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Respeta puntos de vista divergentes, cuida el ambiente y exige derechos de manera fundamentada en situaciones cotidianas.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Educación ambiental, derechos humanos, debates interdisciplinarios.</div>
+                    <!-- J.3 -->
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">J.3 · Respeto con personas, naturaleza e ideas</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Analiza cumplimiento de obligaciones, respeto a diversidad de pensamiento y entorno natural.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Respeta puntos de vista diversos, cuida el ambiente y exige derechos fundamentados.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Educación ambiental, derechos humanos, debates interdisciplinarios.</div>
                     </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">J.4 – Reflexión, fortalezas y plan de vida</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Valora la autoconciencia y capacidad de mejora continua, estableciendo metas personales realistas con visión a largo plazo.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Elabora un plan de vida inicial que integra autocrítica, fortalezas reconocidas y estrategias de superación personal.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Orientación vocacional, psicología educativa, desarrollo humano.</div>
-                    </div>
-                </div>
-                
-                <!-- COLUMNA INNOVACIÓN -->
-                <div class="valor-columna columna-innovacion">
-                    <div class="valor-titulo">Innovación</div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">I.1 – Creatividad, liderazgo auténtico y gestión de riesgos</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Evalúa la generación de ideas originales, la toma de decisiones proactiva y la capacidad de asumir desafíos con responsabilidad y visión de futuro.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Diseña un proyecto de emprendimiento o solución innovadora identificando posibles riesgos y estrategias de mitigación, mostrando liderazgo colaborativo.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Proyectos STEAM, emprendimiento, ferias de innovación.</div>
-                    </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">I.2 – Curiosidad intelectual, indagación y resolución colaborativa</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Mide la habilidad para investigar problemas reales (nacionales/mundiales), aplicar conocimientos interdisciplinarios y trabajar de manera interdependiente.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Formula preguntas de indagación, recopila información de múltiples fuentes y propone soluciones en equipo utilizando recursos digitales y científicos.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Investigación escolar, metodologías activas, aprendizaje basado en problemas.</div>
-                    </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">I.3 – Comunicación clara, multilingüe y multimodal</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Verifica la competencia comunicativa en diversos lenguajes (numérico, digital, artístico, corporal), asumiendo responsabilidad ética de los discursos.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Produce mensajes orales, escritos o multimodales coherentes, empleando al menos dos lenguajes de manera clara y respetuosa.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Lengua y literatura, lenguas extranjeras, expresión artística, matemática digital.</div>
-                    </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">I.4 – Autonomía, razonamiento lógico y humildad intelectual</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Determina la capacidad de organizar tareas con independencia, aplicar pensamiento complejo y reconocer los propios límites como base para el aprendizaje permanente.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Elabora argumentos lógicos estructurados, revisa sus sesgos y reconoce cuándo requiere nueva información, demostrando apertura al diálogo.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Filosofía, matemática crítica, metacognición, proyectos autogestionados.</div>
-                    </div>
-                </div>
-                
-                <!-- COLUMNA SOLIDARIDAD -->
-                <div class="valor-columna columna-solidaridad">
-                    <div class="valor-titulo">Solidaridad</div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">S.1 – Responsabilidad social e interacción con grupos heterogéneos</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Evalúa la empatía, la tolerancia y la capacidad de relacionarse constructivamente con personas diversas en equidad y comprensión.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Participa en proyectos colaborativos donde integra a personas con distintas perspectivas, practicando escucha activa y solidaridad frente a necesidades colectivas.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Proyectos de integración, trabajo en equipo interdisciplinario, convivencia escolar.</div>
-                    </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">S.2 – Identidad nacional, multiculturalidad y construcción de paz</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Valora el respeto por la plurinacionalidad, la interculturalidad y el compromiso con una convivencia pacífica, reconociendo la diversidad étnica y cultural.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Reconoce y valora manifestaciones culturales diversas, promueve el diálogo intercultural y propone acciones para prevenir la discriminación en su entorno.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Estudios interculturales, historia del Ecuador, educación para la paz.</div>
-                    </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">S.3 – Armonía físico-intelectual e inteligencia emocional</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Verifica la integración del bienestar físico y mental, utilizando la inteligencia emocional para ser positivo, flexible y autocrítico ante los desafíos.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Aplica estrategias de autorregulación emocional en situaciones de conflicto, manteniendo una actitud constructiva y equilibrada en el ámbito escolar.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Educación física, bienestar emocional, tutorías y convivencia.</div>
-                    </div>
-                    
-                    <div class="competencia-item">
-                        <div class="competencia-texto">S.4 – Adaptación al trabajo en equipo y respeto por las ideas ajenas</div>
-                        <div class="criterio-evaluacion"><strong>Criterio de evaluación:</strong> Mide la capacidad de colaborar en equipos diversos, comprendiendo la realidad circundante y valorando aportes distintos al propio.</div>
-                        <div class="indicador"><strong>Indicador:</strong> Participa asertivamente en dinámicas grupales, integrando críticas constructivas y contribuyendo al logro de metas comunes con respeto mutuo.</div>
-                        <div class="inserto"><span>Inserción curricular:</span> Aprendizaje cooperativo, proyectos grupales, metodologías activas participativas.</div>
+                    <!-- J.4 -->
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">J.4 · Reflexión, fortalezas y plan de vida</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Valora autoconciencia y mejora continua, metas personales realistas.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Elabora plan de vida con autocrítica y estrategias de superación.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Orientación vocacional, psicología educativa, desarrollo humano.</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Sección de síntesis - estilo mapa conceptual integrador -->
-            <div class="competencias-integradoras">
-                <span class="badge-integral">COMPETENCIAS INTEGRADORAS</span>
-                <p style="font-weight: 600; margin-top: 12px; font-size: 11.5pt;">Ejes transversales del perfil de salida</p>
-                <p>✓ <strong>Justicia:</strong> compromiso ético, comprensión social, respeto por derechos, planificación de vida responsable.</p>
-                <p>✓ <strong>Innovación:</strong> creatividad, pensamiento crítico, comunicación multimodal, autonomía y curiosidad intelectual.</p>
-                <p>✓ <strong>Solidaridad:</strong> empatía, identidad inclusiva, inteligencia emocional, trabajo colaborativo y adaptabilidad.</p>
-                <p style="margin-top: 8px; border-left: 2px solid #b9cfec; padding-left: 12px;">Los criterios de evaluación e indicadores están alineados con el currículo 2016, fomentando capacidades para la vida democrática, innovadora y solidaria.</p>
+            <!-- NODO INNOVACIÓN -->
+            <div class="nodo-principal nodo-innovacion">
+                <div class="nodo-titulo">💡 Innovación</div>
+                <div class="ramas-competencias">
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">I.1 · Creatividad, liderazgo y gestión de riesgos</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Evalúa ideas originales, toma decisiones proactivas y afronta desafíos.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Diseña proyecto emprendedor identificando riesgos y mostrando liderazgo colaborativo.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Proyectos STEAM, emprendimiento, ferias de innovación.</div>
+                    </div>
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">I.2 · Curiosidad intelectual, indagación colaborativa</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Investiga problemas nacionales/mundiales, aplica conocimientos interdisciplinarios.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Formula preguntas, recopila múltiples fuentes y propone soluciones en equipo.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Investigación escolar, aprendizaje basado en problemas.</div>
+                    </div>
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">I.3 · Comunicación clara, multilingüe y multimodal</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Verifica competencias comunicativas en lenguajes numérico, digital, artístico.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Produce mensajes coherentes usando al menos dos lenguajes de forma clara y responsable.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Lengua, lenguas extranjeras, expresión artística, matemática digital.</div>
+                    </div>
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">I.4 · Autonomía, razonamiento lógico y humildad intelectual</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Organiza tareas con independencia, pensamiento complejo y aprendizaje continuo.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Elabora argumentos lógicos, reconoce sesgos y apertura al diálogo.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Filosofía, matemática crítica, metacognición.</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="nota-pie">
-                Fuente: Perfil de salida del Bachillerato ecuatoriano (2016) – Valores: justicia, innovación y solidaridad.<br>
-                Mapa conceptual con competencias, inserciones curriculares, criterios de evaluación e indicadores de logro.
+            <!-- NODO SOLIDARIDAD -->
+            <div class="nodo-principal nodo-solidaridad">
+                <div class="nodo-titulo">🤝 Solidaridad</div>
+                <div class="ramas-competencias">
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">S.1 · Responsabilidad social e interacción heterogénea</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Evalúa empatía, tolerancia y relación constructiva con grupos diversos.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Participa en proyectos colaborativos inclusivos, practica escucha activa y solidaridad.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Proyectos de integración, trabajo en equipo interdisciplinario.</div>
+                    </div>
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">S.2 · Identidad nacional, multiculturalidad y paz</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Valora plurinacionalidad, interculturalidad y convivencia pacífica.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Reconoce diversidad cultural, promueve diálogo intercultural y acciones antidiscriminación.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Estudios interculturales, historia del Ecuador, educación para la paz.</div>
+                    </div>
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">S.3 · Armonía físico-intelectual e inteligencia emocional</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Integra bienestar físico y mental, usando inteligencia emocional para ser positivo y autocrítico.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Aplica autorregulación emocional ante conflictos, actitud constructiva.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Educación física, bienestar emocional, tutorías.</div>
+                    </div>
+                    <div class="nodo-secundario">
+                        <div class="competencia-titulo">S.4 · Adaptación al trabajo en equipo y respeto de ideas</div>
+                        <div class="criterio-bloque"><strong>Criterio:</strong> Colabora en equipos diversos, comprendiendo la realidad y valorando aportes ajenos.</div>
+                        <div class="indicador-bloque"><strong>Indicador:</strong> Participa asertivamente en grupos, integra críticas constructivas y respeto mutuo.</div>
+                        <div class="insercion-bloque"><span>Inserción:</span> Aprendizaje cooperativo, proyectos grupales, metodologías activas.</div>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <!-- Bloque de síntesis: inspirado en "idea creativa, eficaz, moderna, sencilla, diferente, efectiva" del ejemplo -->
+        <div class="conexiones-globales">
+            <span class="badge-idea">📌 MAPA CONCEPTUAL</span>
+            <div class="texto-integrador">
+                <strong>Competencias integradoras:</strong> Justicia (ética y participación) · Innovación (creatividad y pensamiento crítico) · Solidaridad (empatía y trabajo colaborativo). 
+                Cada nodo articula criterios de evaluación e indicadores concretos, con inserciones curriculares que conectan la teoría con la práctica educativa.
+            </div>
+        </div>
+        
+        <div class="nota-pie">
+            🔹 Basado en el Perfil de salida del Bachillerato ecuatoriano (2016) | Valores: justicia, innovación, solidaridad<br>
+            Diseño conceptual tipo nodos – incluye competencias, criterios de evaluación, indicadores e inserciones curriculares.
         </div>
     </div>
     
@@ -445,7 +407,7 @@
                 
                 try {
                     const canvas = await html2canvas(elementToCapture, {
-                        scale: 2.6,
+                        scale: 2.8,
                         backgroundColor: '#ffffff',
                         logging: false,
                         useCORS: false,
@@ -457,12 +419,12 @@
                     const image = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     const fecha = new Date().toISOString().slice(0,19).replace(/:/g, '-');
-                    link.download = `mapa_conceptual_perfil_bachillerato_${fecha}.png`;
+                    link.download = `mapa_conceptual_perfil2016_${fecha}.png`;
                     link.href = image;
                     link.click();
                 } catch (error) {
-                    console.error('Error al generar la imagen: ', error);
-                    alert('Ocurrió un error al generar la imagen. Por favor intente nuevamente.');
+                    console.error('Error al generar imagen: ', error);
+                    alert('Error al generar la imagen. Por favor intente nuevamente.');
                 } finally {
                     downloadBtn.innerText = originalText;
                     downloadBtn.disabled = false;
